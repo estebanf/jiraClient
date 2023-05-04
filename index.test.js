@@ -24,17 +24,31 @@ describe("jira front", function () {
     it("should return the list of issues", function () {
         let jira = initJira();
         let fields = [
-            "summary",
+            "issuetype",
             "customfield_10195",
             "customfield_10196",
             "labels",
+            "assignee",
+            "components",
+            "customfield_10172",
             "customfield_10173",
-            "issuetype",
+            "reporter",
             "updated",
-            "created"
+            "created",
+            "summary",
+            "priority",
+            "status",
+            "customfield_10211",
+            "customfield_10212",
+            "customfield_10213",
+            "customfield_10206",
+            "customfield_10207",
+            "customfield_10209",
+            "parent"
         ];
         return jira.getIssues(10408, fields).then(data => {
             assert.equal(data.length > 0, true);
+//            console.log(data);
             data.forEach(element => {
                 fields.forEach(field => {
                     assert.equal(element.hasOwnProperty(field), true);

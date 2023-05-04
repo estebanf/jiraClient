@@ -21,10 +21,13 @@ class Jira8Base {
             obj.key = x.key;
             fields.forEach(field => {
                 let fieldValue = x.fields[field];
-                if(fieldValue === null){
+                if(fieldValue === null || fieldValue === undefined){
                     obj[field] = null;
                 }
                 else{
+                    // console.log(obj.key);
+                    // console.log(field);
+                    // console.log(fieldValue);
                     if(fieldValue.value) {
                         obj[field] = fieldValue.value;
                     }
@@ -37,7 +40,12 @@ class Jira8Base {
                                 obj[field] = fieldValue.displayName;
                             }
                             else{
-                                obj[field] = fieldValue;
+                                if(fieldValue.fields && fieldValue.fields.summary){
+                                    obj[field] = fieldValue.fields.summary;
+                                }
+                                else{
+                                    obj[field] = fieldValue;
+                                }
                             }
                         }
                     }
