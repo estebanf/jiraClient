@@ -56,9 +56,20 @@ describe("jira front", function () {
             });
         });
     })
-    it("shoult return the history of an issue", function () {
+    it("should return the history of an issue", function () {
         let jira = initJira();
         return jira.getHistory("PRODUCT-43").then(data => {
+            assert.equal(data.length > 0, true);
+        });
+    })
+    it("should support free search", function () {
+        let jira = initJira();
+        let fields = [
+            "status"
+        ];
+        let jql = "project=8base and issueType='UAT Bug' and 'Issue source[Dropdown]'=Support";
+        return jira.searchIssues(fields,jql).then(data => {
+            console.log(data);
             assert.equal(data.length > 0, true);
         });
     });

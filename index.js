@@ -15,6 +15,10 @@ class Jira8Base {
 
         return sortData(mapData(data));
     }
+    async searchIssues(fields, jql){
+        let issuesData = await client.searchIssues(this.settings,{fields:fields, jql:jql});
+        return issuesData;
+    }
     async getIssues(filterId, fields){
         const mapData = R.map((x => {
             let obj = {};
